@@ -1,0 +1,14 @@
+# В репозиторий входят только backend и frontend.
+/*
+!/backend/
+!/frontend/
+
+# Результаты сборки и локальные зависимости.
+/backend/**/bin/
+/backend/**/obj/
+/backend/**/TestResults/
+/frontend/**/node_modules/
+/frontend/**/dist/
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
