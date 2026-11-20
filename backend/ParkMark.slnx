@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ParkMark.Input.Tests/ParkMark.Input.Tests.csproj" />
+  <Project Path="ParkMark.Input/ParkMark.Input.csproj" />
+</Solution>
