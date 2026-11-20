@@ -1,0 +1,28 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using ParkMark.Input.Api.Contracts;
+using ParkMark.Input.Api.OpenApi;
+
+namespace ParkMark.Input.Api.Controllers;
+
+[ApiController]
+[Route("api/v1/admin/analytics")]
+[ApiAccess(ApiAccessLevel.Administrator)]
+public sealed class AdminAnalyticsController : ControllerBase
+{
+    [HttpGet("occupancy")]
+    [EndpointSummary("Получить аналитику занятости")]
+    [EndpointDescription("occupied и available показывают занятость и доступную вместимость по этажам за интервалы.")]
+    [ProducesResponseType<OccupancyAnalyticsResponse>(StatusCodes.Status200OK, "application/json")]
+    public IActionResult GetOccupancy([FromQuery] AnalyticsQuery query) =>
+        StatusCode(StatusCodes.Status501NotImplemented);
+
+    [HttpGet("requests")]
+    [EndpointSummary("Получить аналитику запросов")]
+    [EndpointDescription("succeeded — число успешных броней, refusedNoSpots — число отказов «Мест нет».")]
+    [ProducesResponseType<RequestAnalyticsResponse>(StatusCodes.Status200OK, "application/json")]
+    public IActionResult GetRequests(
+        [FromQuery, BindRequired] DateTimeOffset from,
+        [FromQuery, BindRequired] DateTimeOffset to) =>
+        StatusCode(StatusCodes.Status501NotImplemented);
+}
