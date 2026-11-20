@@ -74,6 +74,20 @@ public sealed class SwaggerContractTests(WebApplicationFactory<Program> applicat
         Assert.Equal("#/components/schemas/ApiProblem", schema.GetProperty("$ref").GetString());
     }
 
+    [Theory]
+    [InlineData("/api/v1/auth/refresh", "post")]
+    [InlineData("/api/v1/me/password", "put")]
+    public async Task TokenRotationDocumentsTheNewTokenPair(string path, string method)
+    {
+        using var client = application.CreateClient();
+        using var document = await GetOpenApiAsync(client);
+        var schema = document.RootElement.GetProperty("paths").GetProperty(path).GetProperty(method)
+            .GetProperty("responses").GetProperty("200").GetProperty("content")
+            .GetProperty("application/json").GetProperty("schema");
+
+        Assert.Equal("#/components/schemas/TokenPairResponse", schema.GetProperty("$ref").GetString());
+    }
+
     [Fact]
     public async Task AdminConflictFilterUsesTheDocumentedStringsAndRequiresAdministratorRole()
     {

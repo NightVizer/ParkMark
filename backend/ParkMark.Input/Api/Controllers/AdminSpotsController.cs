@@ -15,6 +15,7 @@ public sealed class AdminSpotsController : ControllerBase
     [ProducesResponseType<AdminSpotActionResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "spot_not_found")]
     [ApiErrors(StatusCodes.Status409Conflict, "transition_not_allowed")]
+    [ApiStub]
     public IActionResult Close(
         [FromRoute] Guid spotId,
         [FromBody] CloseSpotRequest request) =>
@@ -26,6 +27,7 @@ public sealed class AdminSpotsController : ControllerBase
     [ProducesResponseType<AdminSpotActionResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "spot_not_found")]
     [ApiErrors(StatusCodes.Status409Conflict, "transition_not_allowed")]
+    [ApiStub]
     public IActionResult Reopen(
         [FromRoute] Guid spotId,
         [FromBody] ReopenSpotRequest request) =>
@@ -38,6 +40,7 @@ public sealed class AdminSpotsController : ControllerBase
     [ProducesResponseType<AdminSpotActionResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "spot_not_found")]
     [ApiErrors(StatusCodes.Status409Conflict, "transition_not_allowed")]
+    [ApiStub]
     public IActionResult Release(
         [FromRoute] Guid spotId,
         [FromBody] AdminReleaseSpotRequest request) =>
@@ -50,6 +53,7 @@ public sealed class AdminSpotsController : ControllerBase
     [ProducesResponseType<AdminSpotActionResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "spot_not_found", "user_not_found")]
     [ApiErrors(StatusCodes.Status409Conflict, "transition_not_allowed", "spot_not_allowed")]
+    [ApiStub]
     public IActionResult Assign(
         [FromRoute] Guid spotId,
         [FromBody] AssignSpotRequest request) =>
@@ -59,6 +63,7 @@ public sealed class AdminSpotsController : ControllerBase
     [EndpointSummary("Освободить все места")]
     [Consumes("application/json")]
     [ProducesResponseType<ReleaseAllResponse>(StatusCodes.Status200OK, "application/json")]
+    [ApiStub]
     public IActionResult ReleaseAll([FromBody] ReleaseAllRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 }

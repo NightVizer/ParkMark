@@ -16,6 +16,7 @@ public sealed class AuthController : ControllerBase
     [ApiErrors(StatusCodes.Status404NotFound, "employee_not_found")]
     [ApiErrors(StatusCodes.Status409Conflict, "employee_already_registered")]
     [ApiErrors(StatusCodes.Status429TooManyRequests, "too_many_requests")]
+    [ApiStub]
     public IActionResult Identify([FromBody] IdentifyRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
@@ -27,6 +28,7 @@ public sealed class AuthController : ControllerBase
     [ProducesResponseType<AuthResponse>(StatusCodes.Status201Created, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "employee_not_found")]
     [ApiErrors(StatusCodes.Status409Conflict, "employee_already_registered")]
+    [ApiStub]
     public IActionResult Register([FromBody] RegisterRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
@@ -38,6 +40,7 @@ public sealed class AuthController : ControllerBase
     [ProducesResponseType<AuthResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status401Unauthorized, "invalid_credentials")]
     [ApiErrors(StatusCodes.Status429TooManyRequests, "too_many_requests")]
+    [ApiStub]
     public IActionResult Login([FromBody] LoginRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
@@ -45,9 +48,10 @@ public sealed class AuthController : ControllerBase
     [HttpPost("refresh")]
     [EndpointSummary("Обновить пару токенов")]
     [Consumes("application/json")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType<TokenPairResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status401Unauthorized, "invalid_refresh_token")]
     [ApiErrors(StatusCodes.Status429TooManyRequests, "too_many_requests")]
+    [ApiStub]
     public IActionResult Refresh([FromBody] RefreshRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
@@ -55,6 +59,7 @@ public sealed class AuthController : ControllerBase
     [EndpointSummary("Завершить сессию")]
     [Consumes("application/json")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ApiStub]
     public IActionResult Logout([FromBody] LogoutRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 }

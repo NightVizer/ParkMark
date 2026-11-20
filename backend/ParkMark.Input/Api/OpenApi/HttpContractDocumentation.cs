@@ -45,11 +45,10 @@ internal static class HttpContractDocumentation
     {
         var metadata = context.Description.ActionDescriptor.EndpointMetadata;
         var access = metadata.OfType<ApiAccessAttribute>().LastOrDefault()?.Level;
-        var errors = metadata.OfType<ApiErrorsAttribute>()
-            .GroupBy(error => error.StatusCode)
-            .ToDictionary(
-                group => group.Key,
-                group => new HashSet<string>(group.SelectMany(error => error.Codes), StringComparer.Ordinal));
+        var declaredErrors = metadata.OfType<ApiErrorsAttribute>().ToLookup(error => error.StatusCode);
+        var errors = declaredErrors.ToDictionary(
+            group => group.Key,
+            group => new HashSet<string>(group.SelectMany(error => error.Codes), StringComparer.Ordinal));
 
         if (operation.RequestBody is not null || operation.Parameters?.Count > 0)
         {
@@ -85,11 +84,9 @@ internal static class HttpContractDocumentation
         operation.Responses ??= new OpenApiResponses();
         foreach (var (statusCode, codes) in errors)
         {
-            var description = string.Join(", ", codes.Order(StringComparer.Ordinal).Select(code => $"`{code}`"));
-            if (codes.Contains("no_spots"))
-            {
-                description += ". При `no_spots` передаётся `alternativeAddress`.";
-            }
+            var codeList = string.Join(", ", codes.Order(StringComparer.Ordinal).Select(code => $"`{code}`"));
+            var details = declaredErrors[statusCode].Select(error => error.Description).OfType<string>();
+            var description = string.Join("\n\n", details.Prepend(codeList));
 
             operation.Responses[statusCode.ToString(CultureInfo.InvariantCulture)] =
                 new OpenApiResponse
@@ -101,11 +98,6 @@ internal static class HttpContractDocumentation
                     }
                 };
         }
-
-        operation.Responses["501"] = new OpenApiResponse
-        {
-            Description = "Операция пока работает как заглушка."
-        };
 
         return Task.CompletedTask;
     }

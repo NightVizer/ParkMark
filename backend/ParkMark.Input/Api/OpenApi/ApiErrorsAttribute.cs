@@ -5,4 +5,5 @@ internal sealed class ApiErrorsAttribute(int statusCode, params string[] codes) 
 {
     public int StatusCode { get; } = statusCode;
     public IReadOnlyList<string> Codes { get; } = codes;
+    public string? Description { get; set; }
 }

@@ -11,12 +11,14 @@ public sealed class NotificationsController : ControllerBase
     [HttpGet]
     [EndpointSummary("Получить уведомления текущего пользователя")]
     [ProducesResponseType<NotificationListResponse>(StatusCodes.Status200OK, "application/json")]
+    [ApiStub]
     public IActionResult List([FromQuery] PageQuery query) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
     [HttpGet("unread-count")]
     [EndpointSummary("Получить число непрочитанных уведомлений")]
     [ProducesResponseType<UnreadCountResponse>(StatusCodes.Status200OK, "application/json")]
+    [ApiStub]
     public IActionResult GetUnreadCount() =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
@@ -24,6 +26,7 @@ public sealed class NotificationsController : ControllerBase
     [EndpointSummary("Получить уведомление")]
     [ProducesResponseType<NotificationResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "notification_not_found")]
+    [ApiStub]
     public IActionResult GetNotification([FromRoute] Guid notificationId) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
@@ -31,6 +34,7 @@ public sealed class NotificationsController : ControllerBase
     [EndpointSummary("Отметить уведомление прочитанным")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ApiErrors(StatusCodes.Status404NotFound, "notification_not_found")]
+    [ApiStub]
     public IActionResult MarkRead([FromRoute] Guid notificationId) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 }

@@ -14,6 +14,7 @@ public sealed class AdminHistoryController : ControllerBase
     [EndpointDescription("Если записей нет, items пуст.")]
     [Consumes("application/json")]
     [ProducesResponseType<Page<HistoryItemResponse>>(StatusCodes.Status200OK, "application/json")]
+    [ApiStub]
     public IActionResult Search([FromBody] HistorySearchRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
@@ -22,6 +23,7 @@ public sealed class AdminHistoryController : ControllerBase
     [EndpointDescription("После обезличивания anonymized имеет значение true, а поля с личностью пусты.")]
     [ProducesResponseType<HistoryDetailsResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "history_not_found")]
+    [ApiStub]
     public IActionResult GetDetails([FromRoute] Guid historyId) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 }

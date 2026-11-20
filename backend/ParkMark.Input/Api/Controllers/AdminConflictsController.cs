@@ -13,6 +13,7 @@ public sealed class AdminConflictsController : ControllerBase
     [EndpointSummary("Получить список конфликтов")]
     [EndpointDescription("Фильтр state принимает open и resolved.")]
     [ProducesResponseType<Page<ConflictResponse>>(StatusCodes.Status200OK, "application/json")]
+    [ApiStub]
     public IActionResult List([FromQuery] ConflictListQuery query) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
@@ -23,6 +24,7 @@ public sealed class AdminConflictsController : ControllerBase
     [ProducesResponseType<ConflictResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "conflict_not_found")]
     [ApiErrors(StatusCodes.Status409Conflict, "conflict_already_resolved", "transition_not_allowed")]
+    [ApiStub]
     public IActionResult Resolve(
         [FromRoute] Guid historyId,
         [FromBody] ResolveConflictRequest request) =>

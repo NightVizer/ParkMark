@@ -16,6 +16,7 @@ public sealed class OfflineSyncController : ControllerBase
     [Consumes("application/json")]
     [ProducesResponseType<OfflineSyncResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status400BadRequest, "validation_failed")]
+    [ApiStub]
     public IActionResult Sync([FromBody] OfflineSyncRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 }

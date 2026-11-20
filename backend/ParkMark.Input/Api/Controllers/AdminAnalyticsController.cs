@@ -14,6 +14,7 @@ public sealed class AdminAnalyticsController : ControllerBase
     [EndpointSummary("Получить аналитику занятости")]
     [EndpointDescription("occupied и available показывают занятость и доступную вместимость по этажам за интервалы.")]
     [ProducesResponseType<OccupancyAnalyticsResponse>(StatusCodes.Status200OK, "application/json")]
+    [ApiStub]
     public IActionResult GetOccupancy([FromQuery] AnalyticsQuery query) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
@@ -21,6 +22,7 @@ public sealed class AdminAnalyticsController : ControllerBase
     [EndpointSummary("Получить аналитику запросов")]
     [EndpointDescription("succeeded — число успешных броней, refusedNoSpots — число отказов «Мест нет».")]
     [ProducesResponseType<RequestAnalyticsResponse>(StatusCodes.Status200OK, "application/json")]
+    [ApiStub]
     public IActionResult GetRequests(
         [FromQuery, BindRequired] DateTimeOffset from,
         [FromQuery, BindRequired] DateTimeOffset to) =>

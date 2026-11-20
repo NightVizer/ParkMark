@@ -14,6 +14,7 @@ public sealed class AdminUsersController : ControllerBase
     [EndpointDescription("search — поиск по ФИО или ID сотрудника.")]
     [Consumes("application/json")]
     [ProducesResponseType<Page<UserSummaryResponse>>(StatusCodes.Status200OK, "application/json")]
+    [ApiStub]
     public IActionResult Search([FromBody] UserSearchRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 }
