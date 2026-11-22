@@ -9,6 +9,7 @@ namespace ParkMark.Input.Api.Controllers;
 public sealed class BookingsController : ControllerBase
 {
     private const string NoSpotsDescription = "При `no_spots` передаётся `alternativeAddress`.";
+    private const string ArriveNoSpotsDescription = "При `no_spots` передаётся `alternativeAddress`, бронь отменяется.";
 
     [HttpPost]
     [EndpointSummary("Создать предварительную бронь")]
@@ -43,13 +44,14 @@ public sealed class BookingsController : ControllerBase
     [ProducesResponseType<ArrivalResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "booking_not_found")]
     [ApiErrors(StatusCodes.Status409Conflict, "no_spots", "booking_not_active",
-        Description = NoSpotsDescription)]
+        Description = ArriveNoSpotsDescription)]
     [ApiStub]
     public IActionResult Arrive([FromRoute] Guid bookingId) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
     [HttpDelete("{bookingId}")]
     [EndpointSummary("Отменить предварительную бронь")]
+    [EndpointDescription("Повтор для завершённой брони не меняет её исход.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ApiErrors(StatusCodes.Status404NotFound, "booking_not_found")]
     [ApiStub]

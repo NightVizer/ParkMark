@@ -5,13 +5,13 @@ using ParkMark.Input.Api.OpenApi;
 namespace ParkMark.Input.Api.Controllers;
 
 [ApiController]
-[Route("api/v1/admin/users/search")]
+[Route("api/v1/admin/users")]
 [ApiAccess(ApiAccessLevel.Administrator)]
 public sealed class AdminUsersController : ControllerBase
 {
-    [HttpPost]
+    [HttpPost("search")]
     [EndpointSummary("Найти сотрудников")]
-    [EndpointDescription("search — поиск по ФИО или ID сотрудника.")]
+    [EndpointDescription("search — поиск по ФИО или ID сотрудника для действия «Назначить место». Строка поиска передаётся в теле, а не в URL.")]
     [Consumes("application/json")]
     [ProducesResponseType<Page<UserSummaryResponse>>(StatusCodes.Status200OK, "application/json")]
     [ApiStub]

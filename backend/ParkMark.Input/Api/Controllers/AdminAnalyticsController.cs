@@ -12,7 +12,7 @@ public sealed class AdminAnalyticsController : ControllerBase
 {
     [HttpGet("occupancy")]
     [EndpointSummary("Получить аналитику занятости")]
-    [EndpointDescription("occupied и available показывают занятость и доступную вместимость по этажам за интервалы.")]
+    [EndpointDescription("occupied и available показывают занятость и доступную вместимость по этажам за интервалы. Если данных нет, возвращается 200 с пустыми рядами.")]
     [ProducesResponseType<OccupancyAnalyticsResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiStub]
     public IActionResult GetOccupancy([FromQuery] AnalyticsQuery query) =>
@@ -20,7 +20,7 @@ public sealed class AdminAnalyticsController : ControllerBase
 
     [HttpGet("requests")]
     [EndpointSummary("Получить аналитику запросов")]
-    [EndpointDescription("succeeded — число успешных броней, refusedNoSpots — число отказов «Мест нет».")]
+    [EndpointDescription("succeeded — число успешных броней, refusedNoSpots — число отказов «Мест нет». Если данных нет, возвращается 200 с пустыми рядами.")]
     [ProducesResponseType<RequestAnalyticsResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiStub]
     public IActionResult GetRequests(

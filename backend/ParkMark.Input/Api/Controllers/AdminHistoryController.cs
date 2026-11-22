@@ -24,6 +24,6 @@ public sealed class AdminHistoryController : ControllerBase
     [ProducesResponseType<HistoryDetailsResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "history_not_found")]
     [ApiStub]
-    public IActionResult GetDetails([FromRoute] Guid historyId) =>
+    public IActionResult Get([FromRoute] Guid historyId) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 }

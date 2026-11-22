@@ -10,6 +10,7 @@ public sealed class PushSubscriptionsController : ControllerBase
 {
     [HttpGet("public-key")]
     [EndpointSummary("Получить открытый ключ VAPID")]
+    [EndpointDescription("Открытый ключ берётся из конфигурации.")]
     [ProducesResponseType<PushPublicKeyResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiStub]
     public IActionResult GetPublicKey() =>
@@ -17,6 +18,7 @@ public sealed class PushSubscriptionsController : ControllerBase
 
     [HttpPut("subscription")]
     [EndpointSummary("Сохранить push-подписку")]
+    [EndpointDescription("Подписка устройства. Повтор с тем же endpoint не создаёт дубль.")]
     [Consumes("application/json")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ApiStub]
@@ -25,6 +27,7 @@ public sealed class PushSubscriptionsController : ControllerBase
 
     [HttpPost("subscription/revoke")]
     [EndpointSummary("Отозвать push-подписку")]
+    [EndpointDescription("Пользователь отключил push. При выходе подписку отзывает Logout.")]
     [Consumes("application/json")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ApiStub]

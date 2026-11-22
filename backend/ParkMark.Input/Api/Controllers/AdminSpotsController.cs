@@ -11,6 +11,7 @@ public sealed class AdminSpotsController : ControllerBase
 {
     [HttpPost("spots/{spotId}/close")]
     [EndpointSummary("Закрыть место")]
+    [EndpointDescription("Причина обязательна (FR-34): без неё 400 validation_failed.")]
     [Consumes("application/json")]
     [ProducesResponseType<AdminSpotActionResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "spot_not_found")]
@@ -23,6 +24,7 @@ public sealed class AdminSpotsController : ControllerBase
 
     [HttpPost("spots/{spotId}/reopen")]
     [EndpointSummary("Открыть место")]
+    [EndpointDescription("Возвращает место в работу. Причина обязательна (FR-34): без неё 400 validation_failed.")]
     [Consumes("application/json")]
     [ProducesResponseType<AdminSpotActionResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "spot_not_found")]
@@ -35,7 +37,7 @@ public sealed class AdminSpotsController : ControllerBase
 
     [HttpPost("spots/{spotId}/release")]
     [EndpointSummary("Освободить место администратором")]
-    [EndpointDescription("Значение true в doNotAskOwner означает освобождение без вопроса владельцу.")]
+    [EndpointDescription("По умолчанию владельцу уходит вопрос, уберёт ли он машину. Значение true в doNotAskOwner означает освобождение без вопроса (место на карте занято, а физически пустое). Пока владелец не ответил, место остаётся занятым, ответ приходит администратору уведомлением. Причина обязательна (FR-34): без неё 400 validation_failed.")]
     [Consumes("application/json")]
     [ProducesResponseType<AdminSpotActionResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "spot_not_found")]
@@ -48,7 +50,7 @@ public sealed class AdminSpotsController : ControllerBase
 
     [HttpPost("spots/{spotId}/assign")]
     [EndpointSummary("Назначить место")]
-    [EndpointDescription("При отсутствии targetUserId администратор назначает место себе.")]
+    [EndpointDescription("Назначает место себе или сотруднику. При отсутствии targetUserId администратор назначает место себе. Причина обязательна (FR-34): без неё 400 validation_failed.")]
     [Consumes("application/json")]
     [ProducesResponseType<AdminSpotActionResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "spot_not_found", "user_not_found")]
@@ -61,6 +63,7 @@ public sealed class AdminSpotsController : ControllerBase
 
     [HttpPost("parking/release-all")]
     [EndpointSummary("Освободить все места")]
+    [EndpointDescription("Освобождает все занятые места парковки. Тем, кто их занимал, отправляется уведомление, брони не сбрасываются. Причина обязательна: без неё 400 validation_failed.")]
     [Consumes("application/json")]
     [ProducesResponseType<ReleaseAllResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiStub]

@@ -10,13 +10,10 @@ public sealed class OfflineSyncController : ControllerBase
 {
     [HttpPost]
     [EndpointSummary("Отправить пакет офлайн-событий")]
-    [EndpointDescription(
-        "Пакет events должен быть непустым, а sequence должен возрастать. " +
-        "Каждый clientEventId получает собственный результат в results. Повтор события возвращает первый результат.")]
+    [EndpointDescription("Исход определяется по каждому событию: принято, отклонено или конфликт. События передаются координации в порядке sequence. Повтор с тем же clientEventId возвращает первый результат.")]
     [Consumes("application/json")]
     [ProducesResponseType<OfflineSyncResponse>(StatusCodes.Status200OK, "application/json")]
-    [ApiErrors(StatusCodes.Status400BadRequest, "validation_failed")]
     [ApiStub]
-    public IActionResult Sync([FromBody] OfflineSyncRequest request) =>
+    public IActionResult Submit([FromBody] OfflineSyncRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 }

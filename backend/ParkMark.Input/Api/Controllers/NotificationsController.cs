@@ -10,6 +10,7 @@ public sealed class NotificationsController : ControllerBase
 {
     [HttpGet]
     [EndpointSummary("Получить уведомления текущего пользователя")]
+    [EndpointDescription("Возвращаются только уведомления текущего пользователя.")]
     [ProducesResponseType<NotificationListResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiStub]
     public IActionResult List([FromQuery] PageQuery query) =>
@@ -17,6 +18,7 @@ public sealed class NotificationsController : ControllerBase
 
     [HttpGet("unread-count")]
     [EndpointSummary("Получить число непрочитанных уведомлений")]
+    [EndpointDescription("Число непрочитанных уведомлений для индикатора на колокольчике.")]
     [ProducesResponseType<UnreadCountResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiStub]
     public IActionResult GetUnreadCount() =>
@@ -27,11 +29,12 @@ public sealed class NotificationsController : ControllerBase
     [ProducesResponseType<NotificationResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "notification_not_found")]
     [ApiStub]
-    public IActionResult GetNotification([FromRoute] Guid notificationId) =>
+    public IActionResult Get([FromRoute] Guid notificationId) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
     [HttpPost("{notificationId}/read")]
     [EndpointSummary("Отметить уведомление прочитанным")]
+    [EndpointDescription("Повтор безопасен.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ApiErrors(StatusCodes.Status404NotFound, "notification_not_found")]
     [ApiStub]

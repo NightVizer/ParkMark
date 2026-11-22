@@ -5,10 +5,10 @@ using ParkMark.Input.Api.OpenApi;
 namespace ParkMark.Input.Api.Controllers;
 
 [ApiController]
-[Route("api/v1/spots")]
+[Route("api/v1/spots/{spotId}")]
 public sealed class OccupancyController : ControllerBase
 {
-    [HttpPost("{spotId}/occupy")]
+    [HttpPost("occupy")]
     [EndpointSummary("Занять место")]
     [EndpointDescription("Повтор с тем же clientEventId возвращает первый результат.")]
     [Consumes("application/json")]
@@ -21,7 +21,7 @@ public sealed class OccupancyController : ControllerBase
         [FromBody] ManualActionRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
-    [HttpPost("{spotId}/release")]
+    [HttpPost("release")]
     [EndpointSummary("Освободить место")]
     [EndpointDescription("Повтор с тем же clientEventId возвращает первый результат.")]
     [Consumes("application/json")]
@@ -34,9 +34,9 @@ public sealed class OccupancyController : ControllerBase
         [FromBody] ManualActionRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
-    [HttpPost("{spotId}/night-check")]
+    [HttpPost("night-check")]
     [EndpointSummary("Ответить на ночной запрос")]
-    [EndpointDescription("Значение true в keepSpot означает «оставляю машину», false — «нет».")]
+    [EndpointDescription("Значение true в keepSpot («да») продлевает занятие на следующий день, false («нет») освобождает место.")]
     [Consumes("application/json")]
     [ProducesResponseType<OccupancyResultResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "spot_not_found")]
@@ -47,15 +47,15 @@ public sealed class OccupancyController : ControllerBase
         [FromBody] NightCheckAnswerRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
-    [HttpPost("{spotId}/move-answer")]
+    [HttpPost("move-answer")]
     [EndpointSummary("Ответить на вопрос об освобождении места")]
-    [EndpointDescription("Значение true в willMove означает «уберу машину», false — «нет».")]
+    [EndpointDescription("Ответ на вопрос администратора «уберёте машину?». Значение true в willMove («уберу») сразу освобождает место, false («нет») оставляет его занятым. Ответ уходит администратору.")]
     [Consumes("application/json")]
     [ProducesResponseType<OccupancyResultResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "spot_not_found")]
     [ApiErrors(StatusCodes.Status409Conflict, "move_question_not_pending", "not_your_spot")]
     [ApiStub]
-    public IActionResult AnswerMoveQuestion(
+    public IActionResult AnswerMoveRequest(
         [FromRoute] Guid spotId,
         [FromBody] MoveAnswerRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);

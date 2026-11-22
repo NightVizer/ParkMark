@@ -11,11 +11,11 @@ public sealed class AuthController : ControllerBase
     [ApiAccess(ApiAccessLevel.Anonymous)]
     [HttpPost("identify")]
     [EndpointSummary("Проверить ID сотрудника")]
+    [EndpointDescription("ID должен быть в списке сотрудников, заданном в коде.")]
     [Consumes("application/json")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ApiErrors(StatusCodes.Status404NotFound, "employee_not_found")]
     [ApiErrors(StatusCodes.Status409Conflict, "employee_already_registered")]
-    [ApiErrors(StatusCodes.Status429TooManyRequests, "too_many_requests")]
     [ApiStub]
     public IActionResult Identify([FromBody] IdentifyRequest request) =>
         StatusCode(StatusCodes.Status501NotImplemented);
@@ -23,7 +23,7 @@ public sealed class AuthController : ControllerBase
     [ApiAccess(ApiAccessLevel.Anonymous)]
     [HttpPost("register")]
     [EndpointSummary("Зарегистрировать сотрудника")]
-    [EndpointDescription("В ответе login равен employeeId.")]
+    [EndpointDescription("Пользователь сам вводит ФИО и пароль. В ответе профиль и пара токенов, login по умолчанию равен employeeId.")]
     [Consumes("application/json")]
     [ProducesResponseType<AuthResponse>(StatusCodes.Status201Created, "application/json")]
     [ApiErrors(StatusCodes.Status404NotFound, "employee_not_found")]
@@ -35,7 +35,7 @@ public sealed class AuthController : ControllerBase
     [ApiAccess(ApiAccessLevel.Anonymous)]
     [HttpPost("login")]
     [EndpointSummary("Войти")]
-    [EndpointDescription("В login передаётся текущий логин пользователя.")]
+    [EndpointDescription("В login передаётся ID сотрудника или сменённый логин.")]
     [Consumes("application/json")]
     [ProducesResponseType<AuthResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status401Unauthorized, "invalid_credentials")]
@@ -57,6 +57,7 @@ public sealed class AuthController : ControllerBase
 
     [HttpPost("logout")]
     [EndpointSummary("Завершить сессию")]
+    [EndpointDescription("Refresh-токен отзывается, push-подписка этого устройства отзывается в той же операции.")]
     [Consumes("application/json")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ApiStub]

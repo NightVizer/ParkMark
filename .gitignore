@@ -6,6 +6,7 @@
 # Результаты сборки и локальные зависимости.
 /backend/**/bin/
 /backend/**/obj/
+/backend/**/.vs/
 /backend/**/TestResults/
 /frontend/**/node_modules/
 /frontend/**/dist/

@@ -12,11 +12,12 @@ public sealed class ProfileController : ControllerBase
     [EndpointSummary("Получить текущий профиль")]
     [ProducesResponseType<ProfileResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiStub]
-    public IActionResult GetProfile() =>
+    public IActionResult Get() =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
     [HttpPut("password")]
     [EndpointSummary("Сменить пароль")]
+    [EndpointDescription("В ответе новая пара токенов, прочие refresh-токены пользователя отзываются.")]
     [Consumes("application/json")]
     [ProducesResponseType<TokenPairResponse>(StatusCodes.Status200OK, "application/json")]
     [ApiErrors(StatusCodes.Status400BadRequest, "wrong_current_password")]
@@ -27,7 +28,7 @@ public sealed class ProfileController : ControllerBase
 
     [HttpPut("login")]
     [EndpointSummary("Сменить логин")]
-    [EndpointDescription("newLogin должен содержать минимум 6 символов, включая хотя бы одну букву и одну цифру.")]
+    [EndpointDescription("Логин по умолчанию равен ID сотрудника. Новый логин должен содержать минимум 6 символов, включая хотя бы одну букву и одну цифру.")]
     [Consumes("application/json")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ApiErrors(StatusCodes.Status400BadRequest, "validation_failed", "wrong_current_password")]
@@ -38,14 +39,16 @@ public sealed class ProfileController : ControllerBase
 
     [HttpPut("tags/{tag}")]
     [EndpointSummary("Добавить метку пользователя")]
+    [EndpointDescription("Ставит метку текущему пользователю, повтор безопасен. Неизвестная метка даёт 400 validation_failed.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ApiErrors(StatusCodes.Status400BadRequest, "validation_failed")]
     [ApiStub]
-    public IActionResult AddTag([FromRoute] string tag) =>
+    public IActionResult SetTag([FromRoute] string tag) =>
         StatusCode(StatusCodes.Status501NotImplemented);
 
     [HttpDelete("tags/{tag}")]
     [EndpointSummary("Удалить метку пользователя")]
+    [EndpointDescription("Снимает метку текущего пользователя, повтор безопасен.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ApiStub]
     public IActionResult RemoveTag([FromRoute] string tag) =>
