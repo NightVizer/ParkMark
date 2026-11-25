@@ -1,0 +1,37 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 22px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-control);
+  background: var(--color-accent);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.08px;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: #f5d426;
+  }
+
+  &:active:not(:disabled) {
+    background: #ebc917;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    border: 2px dashed var(--color-disabled-border);
+    background: transparent;
+    color: var(--color-text-faint);
+    cursor: default;
+  }
+}

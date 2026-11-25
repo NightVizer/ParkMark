@@ -1,0 +1,30 @@
+.logo {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+}
+
+.letter {
+  position: absolute;
+  top: 13.2414px;
+  left: 13.2414px;
+}
+
+.shine {
+  position: absolute;
+  inset: 0;
+  mask: url('../assets/logo-mask.svg') no-repeat;
+
+  &::before {
+    position: absolute;
+    top: -4.9655px;
+    left: -46.961px;
+    width: 21.5172px;
+    height: 60.9123px;
+    background: url('../assets/logo-shine.svg') no-repeat;
+    transform: skewX(-18deg);
+    content: '';
+  }
+}
