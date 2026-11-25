@@ -39,9 +39,6 @@ export function LoginForm() {
           Войти
         </Button>
       </div>
-      <div role="status" aria-live="polite">
-        {submitted && <p className={styles.status}>Поля заполнены. Вход пока недоступен.</p>}
-      </div>
     </form>
   )
 }
