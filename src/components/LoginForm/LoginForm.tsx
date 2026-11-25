@@ -4,7 +4,7 @@ import { TextField } from '@/UI/TextField/TextField'
 import styles from './LoginForm.module.scss'
 
 export function LoginForm() {
-  const { values, touched, errors, canSubmit, submitted, changeField, blurField, handleSubmit } =
+  const { values, touched, errors, canSubmit, changeField, blurField, handleSubmit } =
     useLoginForm()
 
   return (
