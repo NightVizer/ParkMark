@@ -1,0 +1,35 @@
+.page {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 480px;
+  min-height: 100svh;
+  margin-inline: auto;
+  overflow: hidden;
+
+  &::before {
+    position: absolute;
+    z-index: -1;
+    top: -360px;
+    left: 60px;
+    width: 720px;
+    height: 720px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, #ffdd2d5c 0%, #ffdd2d24 52%, #ffdd2d00 100%);
+    content: '';
+  }
+}
+
+.content {
+  padding: 24px 16px 40px;
+}
+
+.title {
+  margin: 0;
+  padding: 40px 0 24px;
+  color: var(--color-text);
+  font-size: clamp(60px, 15.833vw, 76px);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
